@@ -1,0 +1,136 @@
+<section class="take-look-cont page-cont">
+  <section class="pages-bg">
+    <img src="assets/img/pages-bg.png">
+  </section>
+  <header class="title">
+    <span class="look-date">『 {{=data.diary.mostDialDate}} 』</span>
+  </header>
+
+  <section class="take-look-number">
+    <p>你与Q房网进线客户</p>
+    <p><span class="detect">最长一次通话了</span></p>
+    <p><span class="number">{{=data.diary.mostDialMinute}}</span> 分钟</p>
+  </section>
+
+  <section class="look-card">
+    <img src="assets/img/call.png">
+  </section>
+  <section class="full-year-look">
+    <section>
+      <p>今年共发布房源</p>
+      <p><span>{{=data.diary.publishCount}}</span> 次</p>
+    </section>
+    <section>
+      <p>累积进线</p>
+      <p><span>{{=data.diary.dialCount}}</span> 次</p>
+    </section>
+  </section>
+</section>
+
+<script>
+  module.exports = {
+    listen: {
+      update: function() {
+        this.data = this.parent.data.pagesData || {
+          diary: {}
+        }
+      }
+    }
+  }
+</script>
+
+<style scoped>
+  .take-look-cont .title {
+    width: 38%;
+    height: 5%;
+    margin-left: 3%;
+    margin-top: 5%;
+  }
+  
+  .look-date {
+    font-family: 'dinot';
+    color: #fcb836;
+    font-size: .75rem;
+  }
+  
+  .take-look-number {
+    margin-top: 2%;
+  }
+  
+  .take-look-number p {
+    margin-left: 5%;
+    font-family: 'Myriad Pro';
+    color: #4c4c4c;
+    font-size: 1rem;
+    font-weight: 800;
+  }
+  
+  .take-look-number p:nth-child(2) {
+    margin-top: 3%;
+  }
+  
+  .take-look-number p:nth-child(2) .detect {
+    font-size: 2rem;
+  }
+  
+  .take-look-number p:nth-child(3) {
+    margin-top: 3%;
+  }
+  
+  .take-look-number p:nth-child(3) .number {
+    color: #fcb836;
+    font-size: 2rem;
+    font-family: 'dinot';
+  }
+  
+  .look-card {
+    width: 70%;
+    height: 40%;
+    margin: auto;
+    margin-top: 6%;
+  }
+  
+  .look-card img {
+    height: 100%;
+  }
+  
+  .full-year-look {
+    width: 100%;
+    height: 13%;
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: row;
+    -webkit-flex-direction: row;
+    justify-content: center;
+    -webkit-justify-content: center;
+    align-items: center;
+    -webkit-align-items: center;
+    background: #fcb836;
+    position: absolute;
+    bottom: 0;
+  }
+  
+  .full-year-look section {
+    flex: 1;
+    margin-left: 10%;
+  }
+  
+  .full-year-look section:first-child {
+    border-right: 1px solid #fff;
+  }
+  
+  .full-year-look p {
+    color: #fff;
+    font-size: .6rem;
+    margin-bottom: .1rem;
+  }
+  
+  .full-year-look span {
+    font-size: 1rem;
+    font-family: 'dinot';
+    font-weight: 600;
+  }
+</style>
+
+
+' . ' '

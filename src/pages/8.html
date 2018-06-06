@@ -1,0 +1,101 @@
+<div class="container pr" id="page8Container">
+  <img src="assets/img/{{=data.bgSrc}}.png" alt="" width="100%" height="100%" />
+  <!-- <em class="head-name">『张珊珊』</em> -->
+  <div class="info">
+    <div class="figure">
+      <img src="{{=data.figureSrc}}" alt="" width="100%" height="100%" />
+    </div>
+    <div class="main-text">
+      {{!data.person.name}}
+      <span class="store-name">{{!data.person.orgName}}</span>
+      <p class="score">
+        打败了{{!data.diary.city}}<em class="number">{{=data.diary.defeatPercent || 0}}%</em>的经纪人
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+  module.exports = {
+    listen: {
+      update: function() {
+        this.data = this.parent.data.pagesData || {};
+
+        switch (this.data.diary.annualKeyWord) {
+          case '金':
+          this.data.bgSrc = 'metal';
+          break;
+          case '木':
+          this.data.bgSrc = 'wood';
+          break;
+          case '水':
+          this.data.bgSrc = 'water';
+          break;
+          case '火':
+          this.data.bgSrc = 'fire';
+          break;
+          case '土':
+          this.data.bgSrc = 'earth';
+          break;
+        }
+
+        this.data.figureSrc = this.data.person.photoUrl ? this.data.person.photoUrl: 'assets/img/figure.png';
+      }
+    }
+  }
+</script>
+
+<style scoped>
+  .pr {
+    position: relative;
+  }
+
+  .head-name {
+    position: absolute;
+    top: 9.8%;
+    left: 72%;
+    font-size: 0.7rem;
+    font-style: italic;
+    color: #fcb836;
+  }
+
+  .info {
+    position: absolute;
+    top: 84%;
+    left: 5.4%;
+  }
+
+  .figure {
+    float: left;
+    width: 3rem;
+    height: 3rem;
+    padding: 0.125rem;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #dcdcdc;
+  }
+
+  .main-text {
+    margin-left: 3.5rem;
+    margin-top: 0.1rem;
+    font-size: 0.7rem;
+    color: #4c4c4c;
+  }
+
+  .store-name {
+    margin-left: 0.25rem;
+    color: #999;
+    font-size: 0.5rem;
+  }
+
+  .number {
+    color: #fcb836;
+    font-size: 1.5rem;
+    font-family: dinot;
+  }
+
+  .score {
+    position: relative;
+    top: -1px;
+  }
+</style>

@@ -1,0 +1,217 @@
+<div>
+  <div id="pages" class="pages dn">
+    {{~data.pages :page}}
+    <div id="page{{=page}}"></div>
+    {{~}}
+  </div>
+  <!-- <div id="footer"><img src="assets/img/footer.png"></div> -->
+  <div class="pagination" id="footer">
+    <div class="inner">
+      <img src="assets/img/foot1.png" alt="" />
+    </div>
+  </div>
+  <div class="share-box dn" id="shareBox">
+    <div class="share-box-inner">
+      <a href="javascript:;" class="btn" id="saveBtn">
+        <span class="icon">
+          <img src="assets/img/save.png" alt="" width="100%" height="100%">
+        </span>
+        <span class="icon-text">保存</span>
+      </a>
+      <span class="split-line"></span>
+      <a href="javascript:;" class="btn" id="shareBtn">
+        <span class="icon">
+          <img src="assets/img/share.png" alt="" width="100%" height="100%">
+        </span>
+        <span class="icon-text">分享</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  var coala = require('coala');
+  var html2canvas = require('html2canvas');
+
+  module.exports = {
+    data: {
+      pages: [1, 2, 3, 4, 5, 6, 7, 8]
+    },
+    refs: {
+      page1: {
+        el: '#page1',
+        component: require('./1.html')
+      },
+      page2: {
+        el: '#page2',
+        component: require('./2.html')
+      },
+      page3: {
+        el: '#page3',
+        component: require('./3.html')
+      },
+      page4: {
+        el: '#page4',
+        component: require('./4.html')
+      },
+      page5: {
+        el: '#page5',
+        component: require('./5.html')
+      },
+      page6: {
+        el: '#page6',
+        component: require('./6.html')
+      },
+      page7: {
+        el: '#page7',
+        component: require('./7.html')
+      },
+      page8: {
+        el: '#page8',
+        component: require('./8.html')
+      }
+    },
+
+    listen: {
+      init: function() {
+        if (window.native) {
+          // 隐藏原生 App 的分享按钮
+          native.shareButton('false');
+        }
+      },
+      mount: function() {
+        this.trigger('renderTurn');
+      },
+
+      renderTurn: function() {
+        var _this = this;
+        this.turn = this.$('#pages').turn({
+          acceleration: true,
+          pages: 8,
+          elevation: 0, // 翻页的角度
+          duration: 600,
+          gradients: !$.isTouch, // 移动设备不显示阴影和渐变，不然会卡
+          // gradients: true,
+          display: 'single',
+          // width: '18.75rem',
+          // height: '30.85rem',
+          when: {
+            turning: function(e, page, view) {
+              page <= 7 && (_this.$('#footer').find('img')[0].src = 'assets/img/foot' + page + '.png');
+              $('#app').removeClass('share-hide');
+              var $shareBox = _this.$('#shareBox');
+              var $footer = _this.$('#footer');
+
+              if (page === 8) {
+                $shareBox.fadeIn(200);
+                $footer.fadeOut(200);
+              } else {
+                $shareBox.fadeOut(200);
+                $footer.fadeIn(200);
+              }
+            },
+            turned: function(e, page) {
+              if (page === 1) {
+                // 打字效果
+                var progress = 0;
+                var $reportDetail = $('#reportDetail');
+                $reportDetail.addClass('dn');
+                var outTimer = setTimeout(function() {
+                  var htmlStr = $reportDetail.html();
+                  $reportDetail.html('').removeClass('dn');
+                  var timer = setInterval(function() {
+                    var currentStr = htmlStr.substr(progress, 1);
+
+                    if (currentStr === '<') {
+                      progress = htmlStr.indexOf('>', progress) + 1;
+                    } else {
+                      progress++;
+                    }
+
+                    $reportDetail.html(htmlStr.substring(0, progress) + (progress & (htmlStr.length % 2 === 0 ? 1 : 2) ? '_' : ''));
+
+                    if (progress >= htmlStr.length) {
+                      clearInterval(timer);
+                      clearTimeout(outTimer);
+                    }
+                  }, 60);
+                }, 3000);
+              }
+
+              if (coala.cRouter && location.hash !== '#/' + page) {
+                if (_this.lastPage < page) {
+                  coala.cRouter.go('/' + page);
+                } else {
+                  coala.cRouter.back();
+                }
+              }
+              _this.lastPage = page;
+            }
+          }
+        });
+        $('#app').on('click', '#shareBtn', this.share.bind(this));
+        $('#app').on('click', '#saveBtn', this.save.bind(this));
+      },
+
+      prev: function() {
+        this.$('#pages').turn('prev');
+      },
+
+      next: function() {
+        this.$('#pages').turn('next');
+      },
+
+      page: function(num) {
+        this.$('#pages').turn('page', num);
+      }
+    },
+    mixins: {
+      pagesHeight: null,
+      applyBase64: function(fn) {
+        if (window.native) {
+          this.hideShare();
+          var _this = this;
+          html2canvas(document.body).then(function(canvas) {
+            // document.body.appendChild(canvas);
+            var base64 = canvas.toDataURL('image/png').replace('data:image/png;base64,', '');
+            fn(base64);
+            _this.showShare();
+          });
+        }
+      },
+
+      share: function() {
+        this.applyBase64(function(base64) {
+          native.shareImg(base64);
+        });
+      },
+
+      save: function() {
+        this.applyBase64(function(base64) {
+          native.saveImg(base64);
+        });
+      },
+
+      hideShare: function() {
+        this.pagesHeight = $('#pages').height();
+        $('#shareBox').hide();
+        $('#pages,.turn-page-wrapper,#page8Container').css('height', $(window).height() - 5 + 'px');
+      },
+      showShare: function() {
+        $('#shareBox').show();
+        $('#pages,.turn-page-wrapper,#page8Container').css('height', this.pagesHeight + 'px');
+      }
+    }
+  }
+</script>
+
+<style>
+  #footer img {
+    width: 58%;
+  }
+  
+  .turn-page {
+    background-color: #E6E6E6;
+    /* background-size: 100% 100%; */
+  }
+</style>

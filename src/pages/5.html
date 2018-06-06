@@ -1,0 +1,147 @@
+<section class="take-look-cont page-cont">
+  <section class="pages-bg">
+    <img src="assets/img/pages-bg.png">
+  </section>
+  {{? data.diary.leadCount }}
+  <header class="title">
+    <span class="look-date">『 {{=data.diary.mostLeadDate}} 』</span>
+  </header>
+  <section class="take-look-number">
+    <p>你最多一次陪客户</p>
+    <p>
+      <span class="detect">侦查了</span>
+      <span class="number">{{=data.diary.mostLeadCount}}</span> 套目标房源
+    </p>
+  </section>
+  {{??}}
+  <header class="title">
+    <span class="look-date">『 2017年 』</span>
+  </header>
+  <section class="no-data-look">
+    <p>全年带看</p>
+    <p><span>0</span> 次</p>
+  </section>
+  {{?}}
+  <section class="look-card">
+    {{? data.diary.leadCount }}
+    <img src="assets/img/look.png"> {{??}}
+    <img src="assets/img/no-look.png"> {{?}}
+  </section>
+  <section class="full-year-look">
+    <p>全年共带看</p>
+    {{? data.diary.leadCount }}
+    <p><span>{{=data.diary.leadCount}}</span> 次</p>
+    {{??}}
+    <p><span>0</span> 次</p>
+    {{?}}
+  </section>
+</section>
+
+<script>
+  module.exports = {
+    listen: {
+      update: function() {
+        this.data = this.parent.data.pagesData || {
+          diary: {}
+        }
+      }
+    }
+  }
+</script>
+
+<style scoped>
+  .take-look-cont .title {
+    width: 38%;
+    height: 5%;
+    margin-left: 3%;
+    margin-top: 5%;
+  }
+  
+  .look-date {
+    font-family: 'dinot';
+    color: #fcb836;
+    font-size: .75rem;
+  }
+  
+  .no-data-look {
+    margin-top: 2%;
+    margin-left: 5%;
+  }
+  
+  .no-data-look p {
+    color: #4c4c4c;
+    font-size: 1rem;
+    margin-top: 3%;
+    font-weight: 600;
+  }
+  
+  .no-data-look span {
+    color: #fcb836;
+    font-size: 2rem;
+  }
+  
+  .take-look-number {
+    margin-top: 2%;
+  }
+  
+  .take-look-number p {
+    margin-left: 5%;
+    font-family: 'Myriad Pro';
+    color: #4c4c4c;
+    font-size: 1rem;
+    font-weight: 800;
+  }
+  
+  .take-look-number p:nth-child(2) {
+    margin-top: 3%;
+  }
+  
+  .take-look-number p:nth-child(2) .detect {
+    font-size: 2rem;
+  }
+  
+  .take-look-number p:nth-child(2) .number {
+    color: #fcb836;
+    font-size: 2rem;
+    font-family: 'dinot';
+  }
+  
+  .look-card {
+    width: 70%;
+    height: 42%;
+    margin: auto;
+    margin-top: 8%;
+  }
+  
+  .look-card img {
+    height: 100%;
+  }
+  
+  .full-year-look {
+    width: 100%;
+    height: 13%;
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    justify-content: center;
+    -webkit-justify-content: center;
+    align-items: center;
+    -webkit-align-items: center;
+    background: #fcb836;
+    position: absolute;
+    bottom: 0;
+  }
+  
+  .full-year-look p {
+    color: #fff;
+    font-size: .6rem;
+    /* margin-bottom: .4rem; */
+  }
+  
+  .full-year-look span {
+    font-size: 1rem;
+    font-family: 'dinot';
+    font-weight: 600;
+  }
+</style>

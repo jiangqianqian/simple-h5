@@ -1,0 +1,115 @@
+<section class="first-card-cont page-cont">
+  <section class="pages-bg">
+    <img src="assets/img/pages-bg.png">
+  </section>
+  <header class="title">
+    <span class="look-date">『 2017年 』</span>
+  </header>
+  <section class="client-total">
+    <p>共有<span>{{=data.diary && data.diary.customerCount}}</span>个</p>
+    <p>为你慕名而来</p>
+  </section>
+  <section class="first-card">
+    {{? data.person}} {{? data.person.gender === 2}}
+    <img src="assets/img/first-card-girl.png">{{??}}
+    <img src="assets/img/first-card-man.png"> {{?}} {{?}}
+  </section>
+  <section class="room-type">
+    <p><span>{{=data.diary && data.diary.mostTargetPercent}}</span>的客户</p>
+    <p>最喜欢的<span>{{=data.diary && data.diary.mostTargetLayout}}居室</span> </p>
+  </section>
+</section>
+
+<script>
+  module.exports = {
+    listen: {
+      update: function() {
+        this.data = this.parent.data.pagesData || {}
+      }
+    }
+  }
+</script>
+
+<style scoped>
+  .first-card-cont .title {
+    width: 40%;
+    height: 4%;
+    margin-left: 3%;
+    margin-top: 5%;
+  }
+  
+  .look-date {
+    font-family: 'dinot';
+    color: #fcb836;
+    font-size: .75rem;
+  }
+  
+  .client-total {
+    margin-top: 2%;
+    margin-left: 5%;
+  }
+  
+  .client-total p {
+    color: #4c4c4c;
+    font-family: 'Myriad Pro';
+    font-size: 1rem;
+  }
+  
+  .client-total p span {
+    color: #fcb836;
+    font-family: 'dinot';
+    font-size: 2rem;
+  }
+  
+  .client-total p:nth-child(2) {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-top: 2%;
+  }
+  
+  .first-card {
+    width: 60%;
+    height: 45%;
+    margin: auto;
+    margin-top: 5%;
+  }
+  
+  .first-card img {
+    height: 100%;
+  }
+  
+  .room-type {
+    width: 80%;
+    padding: 3% 0;
+    margin-left: 10%;
+    position: absolute;
+    bottom: 4%;
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    justify-content: center;
+    -webkit-justify-content: center;
+    align-items: center;
+    -webkit-aligin-items: center;
+    border-top: 1px dashed #dbdbdb;
+    border-bottom: 1px solid #dbdbdb;
+  }
+  
+  .room-type p {
+    font-family: 'Myriad Pro';
+    font-size: .6rem;
+  }
+  
+  .room-type p:first-child span {
+    color: #fcb836;
+    font-size: .9rem;
+    font-family: 'dinot';
+  }
+  
+  .room-type p:nth-child(2) span {
+    color: #161616;
+    font-family: Arial;
+    font-size: .9rem;
+  }
+</style>

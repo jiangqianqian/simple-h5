@@ -1,0 +1,120 @@
+<div class="container">
+  {{?data.diary.mostDealValue > 0 }}
+  <div class="inner-data">
+    <img id="nextBtn" src="assets/img/page7-bg-2.png" alt="" width="100%" height="100%" />
+    <div class="date">『 {{=data.diary.mostDealDate}} 』</div>
+    <div class="account">
+      你过关斩将拿下了成交额
+      <p class="top-space">
+        <em class="font-big">最高</em>的一单是<em class="account-number">{{=data.diary.mostDealValue}}</em>万
+      </p>
+    </div>
+    <div class="summary volume">
+      全年累计成交
+      <br>
+      <em class="number">{{=data.diary.dealCount}}</em>单
+    </div>
+    <div class="summary total-account">
+      成交总额
+      <br>
+      <em class="number">{{=data.diary.dealValue}}</em>万
+    </div>
+  </div>
+  {{??}}
+  <div class="inner-data">
+    <img src="assets/img/page7-bg-1.png" alt="" width="100%" height="100%" />
+    <div class="date">『 2017 』</div>
+    <div class="account">
+      全年累计成交
+      <p class="top-space">
+        <em class="account-number">0</em>单
+      </p>
+    </div>
+    <div class="summary volume">
+      全年累计成交
+      <br>
+      <em class="number">0</em>单
+    </div>
+    <div class="summary total-account">
+      成交总额
+      <br>
+      <em class="number">0</em>万
+    </div>
+  </div>
+  {{?}}
+</div>
+<script>
+  module.exports = {
+    listen: {
+      update: function() {
+        this.data = this.parent.data.pagesData || {};
+      }
+    },
+
+    events: {
+      'click #nextBtn': 'next'
+    },
+
+    handle: {
+      next: function() {
+        coala.cRouter.go('/8');
+      }
+    }
+  }
+</script>
+<style scoped>
+  .inner-data {
+    width: 100%;
+    height: 100%;
+  }
+
+  .date {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.6rem;
+    font-size: 0.75rem;
+    font-family: dinot;
+    color: #fcb836;
+  }
+
+  .account {
+    position: absolute;
+    top: 2.5rem;
+    left: 1rem;
+    line-height: 1;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #4c4c4c;
+  }
+
+  .account-number {
+    font-family: dinot;
+    font-size: 2rem;
+    color: #fcb836;
+  }
+
+  .top-space {
+    padding-top: 1rem;
+  }
+
+  .summary {
+    position: absolute;
+    top: 89.3%;
+    color: #fff;
+    font-size: 0.6rem;
+  }
+
+  .volume {
+    left: 8%;
+  }
+
+  .total-account {
+    left: 58.5%;
+  }
+
+  .summary .number {
+    margin-right: 0.3rem;
+    font-size: 1rem;
+    font-family: dinot;
+  }
+</style>

@@ -1,0 +1,254 @@
+<div class="container">
+  <img id="nextBtn" src="assets/img/2.png" width="100%" height="100%">
+  <div class="date">『 2017年 』</div>
+  <div class="account">
+    共与以下角色房源发生过
+    <p class="account-big">不可描述的关系</p>
+  </div>
+  <div class="title">年度房源报告</div>
+
+  <div class="donut">
+    <div id="chart">
+      {{=data.diary.receiveCount || 0}},
+      {{=data.diary.maintainCount || 0}},
+      {{=data.diary.surveyCount || 0}},
+      {{=data.diary.entrustCount || 0}},
+      {{=data.diary.keyCount || 0}},
+      {{=data.diary.publishCount || 0}}
+    </div>
+    <ul class="lengend">
+        <li class="item">
+          <i class="point house"></i>拓房人
+          <em class="number">{{=data.diary.receiveCount || 0}}</em>次</li>
+        <li class="item">
+          <i class="point maintain"></i>维护人
+          <em class="number">{{=data.diary.maintainCount || 0}}</em>次</li>
+        <li class="item">
+          <i class="point survey"></i>实勘人
+          <em class="number">{{=data.diary.surveyCount || 0}}</em>次</li>
+        <li class="item">
+          <i class="point entrust"></i>委托人
+          <em class="number">{{=data.diary.entrustCount || 0}}</em>次</li>
+        <li class="item">
+          <i class="point key"></i>钥匙人
+          <em class="number">{{=data.diary.keyCount || 0}}</em>次</li>
+        <li class="item">
+          <i class="point publish"></i>发&nbsp;&nbsp;&nbsp;房
+          <em class="number">{{=data.diary.publishCount || 0}}</em>次</li>
+        </li>
+      </ul>
+  </div>
+
+  <div class="rank">
+    <div class="rank-left">
+      超过{{!data.diary.city}}<em class="rank-number">{{=data.diary.roleHouseDefeatPercent || 0}}%</em>的人
+      <div class="progress-bar">
+        <div class="progress-cover" style="width: {{=data.progressBarWidth}}rem"></div>
+      </div>
+    </div>
+    <div class="rank-right">
+      在{{!data.diary.city}}排名
+      <p class="rank-number-wrap">
+        <em class="rank-number">{{=data.diary.roleHouseRank || 0}}</em>&nbsp;名</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  require('peity');
+  var coala = require('coala');
+
+  module.exports = {
+    listen: {
+      updated: function () {
+        var radius = 86;
+        var innerRadius = 34;
+        if ($(window).width() <= 320) {
+          radius = 73;
+          innerRadius = 29;
+        }
+        this.chart = this.$('#chart').peity('donut', {
+          fill: ['#FCB836', '#00BB96', '#43A1E9', '#F05A4A', '#F59901', '#C28CC3'],
+          // radius: 86,
+          // innerRadius: 34
+          radius: radius,
+          innerRadius: innerRadius
+        });
+        // this.chart.text('5, 8, 13, 22, 26, 30').change();
+      },
+      update: function() {
+        this.data = this.parent.data.pagesData || {};
+        this.data.progressBarWidth = this.data.diary.roleHouseDefeatPercent / 100 * 6.25;
+      }
+    },
+
+    events: {
+      'click #nextBtn': 'next'
+    },
+
+    handle: {
+      next: function () {
+        coala.cRouter.go('/3');
+      }
+    }
+  }
+</script>
+
+<style scoped>
+  .donut {
+    position: absolute;
+    top: 11.5rem;
+    /* top: 37%; */
+    left: 0;
+    padding-left: 1rem;
+    width: 100%;
+  }
+
+  .lengend {
+    position: absolute;
+    top: 10px;
+    /* top: 39.5%; */
+    /* left: 11.5rem; */
+    left: 57%;
+    font-size: 0.55rem;
+    color: #787878;
+  }
+
+  .item {
+    line-height: 1.45;
+  }
+
+  .date {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.6rem;
+    font-size: 0.75rem;
+    font-family: dinot;
+    color: #fcb836;
+  }
+
+  .account {
+    position: absolute;
+    top: 2.5rem;
+    left: 1rem;
+    line-height: 1;
+    font-size: 1rem;
+    font-weight: 800;
+    color: #4c4c4c;
+  }
+
+  .account-big {
+    font-size: 2rem;
+    padding-top: 0.6rem;
+  }
+
+  .title {
+    position: absolute;
+    left: 1rem;
+    top: 7.5rem;
+    color: #fcb836;
+    font-size: 0.9rem;
+  }
+
+  .point {
+    /* float: left;
+    position: relative;
+    top: 9px; */
+    display: inline-block;
+    width: 0.35rem;
+    height: 0.35rem;
+    margin-bottom: 1px;
+    margin-right: 0.3rem;
+    border-radius: 50%;
+  }
+
+  .house {
+    background-color: #00BB96;
+  }
+
+  .maintain {
+    background-color: #43A1E9;
+  }
+
+  .survey {
+    background-color: #F05A4A;
+  }
+
+  .entrust {
+    background-color: #F59901;
+  }
+
+  .key {
+    background-color: #C28CC3;
+  }
+
+  .publish {
+    background-color: #FCB836;
+  }
+
+  .number {
+    font-size: 0.8rem;
+    font-weight: bold;
+    font-family: dinot;
+    margin-right: 0.1rem;
+  }
+
+  .rank {
+    position: absolute;
+    left: 1rem;
+    right: 1rem;
+    bottom: 1.125rem;
+    border-top: 1px dashed #dbdbdb;
+    border-bottom: 1px solid #dbdbdb;
+    color: #161616;
+    font-size: 0.6rem;
+  }
+
+  .rank-left,
+  .rank-right {
+    float: left;
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+    width: 50%;
+    box-sizing: border-box;
+  }
+
+  .rank-right {
+    border-left: 1px solid #dbdbdb;
+    padding-left: 0.75rem;
+  }
+
+  .rank-number-wrap {
+    padding-top: 0.3rem;
+  }
+
+  .rank-number {
+    font-family: dinot;
+    font-size: 0.9rem;
+  }
+
+  .progress-bar {
+    position: relative;
+    margin-top: 0.4rem;
+    width: 6.25rem;
+    height: 7px;
+    border-radius: 3.5px;
+    background-color: #dbdbdb;
+    overflow: hidden;
+  }
+
+  .progress-cover {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 7px;
+    /* width: 5.625rem; */
+    background-color: #fcb836;
+  }
+
+  @media screen and (max-width: 330px) {
+    .lengend {
+      top: 3px;
+    }
+}
+</style>

@@ -1,0 +1,258 @@
+<section class="home-content">
+  <header class="title">
+    <h2>Q房经纪人</h2>
+  </header>
+  <section class="home-bg">
+    <img src="assets/img/bg.png">
+  </section>
+  <section class="fun-report" id="funReport">
+    <img src="assets/img/report.png">
+  </section>
+  <section class="report-content">
+    <section class="p-left"><img src="assets/img/p-left.png"></section>
+    <section class="cont-center">
+      <img src="assets/img/content-bg.png">
+      <p id="reportDetail" class="dn">此报告由于泄露天机已被经纪人情报组织列为高度机密你确认开始查阅吗？</p>
+    </section>
+    <section class="p-right"><img src="assets/img/p-right.png"></section>
+  </section>
+  <section class="spaceship-content">
+    <section class="flashing-star">
+      <img src="assets/img/star.png">
+    </section>
+    <section class="spaceship">
+      <img src="assets/img/spaceship.png">
+      <section class="broker-detail">
+        <section class="broker-photo">
+          <img src="assets/img/head.png" id="photoImg">
+        </section>
+        <p class="broker-name">{{=data.person && data.person.name}}</p>
+      </section>
+    </section>
+  </section>
+  <section class="check-content">
+    <a class="check-btn" id="checkBtn">
+      <img src="assets/img/start-check.png">
+    </a>
+    <p class="check-tips">直接查看我的年度关键字</p>
+  </section>
+  <footer>
+
+  </footer>
+</section>
+
+<script>
+  var coala = require('coala');
+
+  module.exports = {
+    data: {},
+    listen: {
+      mount: function() {
+        $('#app').on('click', '#checkBtn', this.check.bind(this));
+      },
+
+      update: function() {
+        this.data = this.parent.data.pagesData || {};
+      },
+
+      updated: function() {
+        if (!$.isEmptyObject(this.data)) {
+          var _this = this;
+          var $photoImg = this.$('#photoImg');
+          var Img = new Image();
+          Img.src = this.data.person.photoUrl;
+          if (Img.complete) {
+            $photoImg.attr('src', _this.data.person.photoUrl);
+          } else {
+            Img.onload = function() {
+              $photoImg.attr('src', _this.data.person.photoUrl);
+            };
+          }
+        }
+      }
+    },
+
+    mixins: {
+      check: function() {
+        coala.turn.trigger('next');
+      }
+    }
+  }
+</script>
+
+<style scoped>
+  .home-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .title {
+    position: absolute;
+    z-index: 1000;
+    left: 8%;
+    top: 1%;
+  }
+  
+  .title h2 {
+    color: #2177be;
+    font-family: 'Myriad Pro';
+    font-size: .7rem;
+  }
+  
+  .home-bg {
+    width: 100%;
+    height: 100%;
+    background: #000d1e;
+  }
+  
+  .home-bg img {
+    height: 100%;
+  }
+  
+  .fun-report {
+    width: 65%;
+    height: 8%;
+    position: absolute;
+    left: 20%;
+    top: 7%;
+    -webkit-animation: puffIn .8s ease 0s 1 normal both;
+  }
+  
+  .report-content {
+    position: absolute;
+    left: 0;
+    top: 17%;
+    width: 100%;
+    height: 20%;
+    overflow: hidden;
+  }
+  
+  .p-left,
+  .p-right {
+    position: absolute;
+    top: 25%;
+    height: 40%;
+  }
+  
+  .p-left {
+    width: 28%;
+    left: -4%;
+    -webkit-animation: leftIn 1s ease 1s normal both;
+  }
+  
+  .p-right {
+    width: 28%;
+    right: -6%;
+    -webkit-animation: rightIn .8s ease 1s normal both;
+  }
+  
+  .cont-center {
+    width: 56%;
+    height: 100%;
+    position: absolute;
+    left: 23%;
+    -webkit-animation: puffIn .8s ease 2s 1 normal both;
+  }
+  
+  .cont-center img {
+    height: 100%;
+  }
+  
+  .cont-center p {
+    width: 80%;
+    font-size: .7rem;
+    color: #fff;
+    text-indent: .75rem;
+    position: absolute;
+    left: 10%;
+    top: 22%;
+    line-height: 1.3rem;
+    font-family: 'Myriad Pro';
+  }
+  
+  .spaceship-content {
+    width: 100%;
+    height: 35%;
+    position: absolute;
+    left: 0;
+    top: 40%;
+    overflow: hidden;
+  }
+  
+  .flashing-star {
+    width: 15%;
+    height: 20%;
+    position: absolute;
+    left: 10%;
+    top: 8%;
+    opacity: 0;
+    -webkit-transform: scale(0);
+    -webkit-animation: starFlash .8s ease-out 5s normal both;
+  }
+  
+  .spaceship {
+    width: 58%;
+    height: 100%;
+    position: absolute;
+    left: 23%;
+    top: 0;
+    -webkit-animation: spaceshipIn 2s linear 5s normal both;
+  }
+  
+  .spaceship img {
+    height: 100%;
+  }
+  
+  .broker-detail {
+    position: absolute;
+    z-index: 100;
+    left: 40%;
+    top: 10%;
+  }
+  
+  .broker-photo {
+    width: 2.3rem;
+    height: 2.3rem;
+    border: .1rem solid #fff;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  
+  .broker-name {
+    color: #fff;
+    font-family: 'Myriad Pro';
+    font-size: .5rem;
+    margin-top: 8%;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .check-content {
+    width: 58%;
+    height: 18%;
+    text-align: center;
+    position: absolute;
+    left: 22%;
+    top: 82%;
+    margin-bottom: .2rem;
+    opacity: 0;
+    -webkit-animation: starFlash .8s ease 7s 1 normal both;
+  }
+  
+  .check-btn {
+    display: inline-block;
+    width: 100%;
+    height: 40%;
+  }
+  
+  .check-tips {
+    color: #2e9cf6;
+    font-size: .6rem;
+    margin-top: 2.5%;
+    font-family: 'Myriad Pro';
+  }
+</style>

@@ -1,0 +1,83 @@
+<section class="featured-listings-cont page-cont">
+  <section class="pages-bg">
+    <img src="assets/img/pages-bg.png">
+  </section>
+  <header class="title">
+    <span class="look-date">『 2017年 』</span>
+  </header>
+  <section class="featured-listings">
+    <p>共持有角色房源</p>
+    <p>总价值<span>{{=data.diary && data.diary.roleHouseValue}}万</span>元</p>
+    <p>总房源量<span>{{=data.diary && data.diary.roleHouseCount}}</span>套</p>
+  </section>
+  <section class="money">
+    <img src="assets/img/money.png">
+  </section>
+</section>
+
+<script>
+  module.exports = {
+    listen: {
+      update: function() {
+        this.data = this.parent.data.pagesData || {}
+      }
+    }
+  }
+</script>
+
+<style scoped>
+  .featured-listings-cont .title {
+    width: 40%;
+    height: 4%;
+    margin-left: 3%;
+    margin-top: 5%;
+  }
+  
+  .look-date {
+    font-family: 'dinot';
+    color: #fcb836;
+    font-size: .75rem;
+  }
+  
+  .featured-listings {
+    height: 30%;
+    margin-top: 2%;
+    margin-left: 5%;
+  }
+  
+  .featured-listings p {
+    font-family: 'Myriad Pro';
+    color: #4c4c4c;
+  }
+  
+  .featured-listings p:first-child {
+    font-size: 2rem;
+    font-weight: 800;
+  }
+  
+  .featured-listings p:nth-child(2) {
+    font-size: .8rem;
+    margin-top: 2%;
+    margin-bottom: 2%;
+  }
+  
+  .featured-listings p:nth-child(3) {
+    font-size: .8rem;
+  }
+  
+  .featured-listings p span {
+    color: #fcb836;
+    font-family: 'dinot';
+    font-size: 2rem;
+  }
+  
+  .money {
+    width: 90%;
+    height: 54%;
+    margin: auto;
+  }
+  
+  .money img {
+    height: 100%;
+  }
+</style>

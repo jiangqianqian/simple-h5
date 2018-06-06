@@ -1,0 +1,321 @@
+html {
+  /* font-size: 20px; */
+  font-family: 'PingFang SC', 'Noto Sans CJK SC', 'Microsoft YaHei', arial, helvetica, tahoma, verdana, sans-serif;
+}
+
+@media only screen and (min-device-width: 320px)and (-webkit-min-device-pixel-ratio: 2) {
+  /* 针对iPhone 4, 5c,5s, 所有iPhone6的放大模式，个别iPhone6的标准模式 */
+  html {
+    font-size: 16px !important;
+  }
+}
+
+@media only screen and (min-device-width: 375px)and (-webkit-min-device-pixel-ratio: 2) {
+  /* 针对大多数iPhone6的标准模式 */
+  html {
+    font-size: 20px !important;
+  }
+}
+
+@media only screen and (min-device-width: 375px)and (-webkit-min-device-pixel-ratio: 3) {
+  /* 针对所有iPhone6+的放大模式   */
+  html {
+    font-size: 21.33333333px !important;
+  }
+}
+
+@media only screen and (min-device-width:412px) and (-webkit-min-device-pixel-ratio: 3) {
+  /* 针对所有iPhone6+的标准模式,414px写为412px是由于三星Nexus 6为412px，可一并处理   */
+  html {
+    font-size: 22.08px !important;
+  }
+}
+
+@media only screen and (min-device-width:480px) and (-webkit-min-device-pixel-ratio: 3) {
+  /* 针对大屏手机   */
+  html {
+    font-size: 25.6px !important;
+  }
+}
+
+/*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+
+article,
+aside,
+body,
+div,
+dl,
+figcaption,
+figure,
+footer,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+header,
+hgroup,
+html,
+input,
+nav,
+ol,
+p,
+section,
+select,
+textarea,
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+article,
+aside,
+div,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+nav,
+ol,
+section,
+ul {
+  display: block;
+  width: auto;
+  height: auto;
+}
+
+@font-face {
+  font-family: "dinot";
+  src: url('../font/DINOT-BOLD_0.eot?t=1490165793856');
+  /* IE9*/
+  src: url('../font/DINOT-BOLD_0.eot?t=1490165793856#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('../font/DINOT-BOLD_0.woff?t=1490165793856') format('woff'), /* chrome, firefox */
+  url('../font/DINOT-BOLD_0.ttf?t=1490165793856') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('../font/DINOT-BOLD_0.svg?t=1490165793856#icon') format('svg');
+  /* iOS 4.1- */
+}
+
+body {
+  font-size: 100%;
+  background-color: #000d1e;
+  /* 解决IOS横、竖屏切换时字体变大的BUG */
+  -webkit-text-size-adjust: none;
+}
+
+a {
+  text-decoration: none;
+  /* 去掉a标签点击时的黑色区域  */
+  -webkit-tap-highlight-color: transparent;
+}
+
+dl,
+ol,
+ul {
+  list-style-type: none;
+}
+
+img {
+  width: 100%;
+  border: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+strong,
+th {
+  font-size: 100%;
+  font-weight: normal;
+}
+
+em,
+i {
+  font-style: normal;
+}
+
+.ellips {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.dn {
+  display: none;
+}
+
+.page-cont {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  position: absolute;
+  z-index: 10;
+}
+
+@-webkit-keyframes puffIn {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+    -webkit-transform: scale(0);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+    -webkit-transform: scale(1);
+  }
+}
+
+@-webkit-keyframes leftIn {
+  0% {
+    opacity: 0;
+    left: -30%
+  }
+  to {
+    opacity: 1;
+    left: -4%;
+  }
+}
+
+@-webkit-keyframes rightIn {
+  0% {
+    opacity: 0;
+    right: -30%
+  }
+  to {
+    opacity: 1;
+    right: -6%;
+  }
+}
+
+@-webkit-keyframes spaceshipIn {
+  0% {
+    opacity: 0;
+    left: 100%;
+    transform: scale(0);
+    -webkit-transform: scale(0);
+  }
+  50% {
+    opacity: .5;
+    left: 40%;
+    transform: scale(.5);
+    -webkit-transform: scale(.5);
+  }
+  75% {
+    opacity: .75;
+    left: 10%;
+    transform: scale(.75);
+    -webkit-transform: scale(.75);
+  }
+  100% {
+    opacity: 1;
+    left: 23%;
+    transform: scale(1);
+    -webkit-transform: scale(1);
+  }
+}
+
+@-webkit-keyframes starFlash {
+  0% {
+    opacity: 0;
+    transform: scale(.3);
+    -webkit-transform: scale(.3);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    -webkit-transform: scale(1);
+  }
+}
+
+.font-big {
+  font-size: 2rem;
+}
+
+.pages {
+  position: absolute!important;
+  top: 0;
+  left: 0;
+  right: 0.2rem;
+  bottom: 8%;
+}
+
+.pagination,
+.share-box {
+  display: table;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 8%;
+  box-sizing: border-box;
+  line-height: 0;
+  z-index: 10;
+}
+
+.pagination .inner {
+  height: 100%;
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.share-box {
+  padding-top: 1px;
+}
+
+.share-box-inner {
+  display: table;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, .7);
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, .8);
+}
+
+.share-box .btn {
+  display: table-cell;
+  width: 50%;
+  height: 100%;
+  text-align: center;
+  vertical-align: middle;
+  text-decoration: none;
+  color: #4a4a4b;
+  font-size: 0.7rem
+}
+
+.share-box .split-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  margin-top: 0.6rem;
+  margin-bottom: 0.6rem;
+  background-color: #fff;
+}
+
+.share-box .icon {
+  display: inline-block;
+  width: 0.875rem;
+  height: 0.875rem;
+  margin-right: 0.2rem;
+}
+
+.share-box .icon-text {
+  position: relative;
+  top: -3px;
+}
+
+.container {
+  height: 100%;
+}
+
+.pages-bg {
+  position: absolute;
+  width: 1rem;
+  right: -4px;
+  bottom: -8px;
+  z-index: 100;
+}
